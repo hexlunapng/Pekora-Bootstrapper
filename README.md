@@ -1,12 +1,5 @@
-\# Info
-
-
-
+# Info
 Bootstrapper for Pekora's multi-client
-
-\# How to build
-
-
-
+# How to build
 Soon
 
