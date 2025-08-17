@@ -253,7 +253,6 @@ CSimpleModule module;
 
 int BootstrapperMain(HINSTANCE hInstance, int nCmdShow, Bootstrapper*(*newBootstrapper)(HINSTANCE))
 {
-	AllocConsole();
 	return module.WinMain(hInstance, nCmdShow, newBootstrapper);
 }
 
