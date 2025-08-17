@@ -2,10 +2,6 @@
 #include "rapidjson/document.h"
 #include <sstream>
 
-// used for the old parser
-#ifndef RBX_BOOTSTRAPPER_MAC
-#include "boost/algorithm/string.hpp"
-#endif
 
 void SimpleJSON::ReadFromStream(const char *stream)
 {

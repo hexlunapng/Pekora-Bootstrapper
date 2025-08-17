@@ -12,7 +12,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/lexical_cast.hpp>
-#include <spdlog/spdlog.h>
 
 static const std::string sContentLength = "content-length: ";
 static const std::string sEtag = "etag: ";
@@ -112,7 +111,6 @@ namespace HttpTools
 				std::ostrstream result;
 				std::string eTag;
 				int statusCode = httpGet(site, site->BaseHost(), "/install/GetInstallerCdns.ashx", eTag, result, false, boost::bind(&dummyProgress, _1, _2));
-				spdlog::info("status: {}", statusCode);
 				switch(statusCode)
 				{
 				case 200:
@@ -163,7 +161,6 @@ namespace HttpTools
 			}
 			catch(std::exception& e)
 			{
-				spdlog::error("Exception occured: {}", e.what());
 				LLOG_ENTRY(site->Logger(), "primaryCdn exception, falling back to secondary installHost");
 			}
 			//Only try to load the CDN once, then give up
@@ -336,15 +333,8 @@ namespace HttpTools
 		{
 			DWORD errorCode = GetLastError();
 
-			if (path.contains("version"))
-			{
-				spdlog::error("Version error: {}", errorCode);
-			}
 			throw std::runtime_error(format_string("HttpOpenRequest failed for %s http://%s%s, Error Code: %d", method, host.c_str(), path.c_str(), errorCode).c_str());
 		}
-			
-		
-			
 
 		if (contentType)
 		{

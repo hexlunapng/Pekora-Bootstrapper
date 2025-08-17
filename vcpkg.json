@@ -1,0 +1,32 @@
+{
+  "name": "bootstrapper",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "name": "boost-asio",
+      "default-features": true      
+    },
+    {
+      "name": "boost-thread",
+      "default-features": true
+    },
+    {
+      "name": "boost-lexical-cast",
+      "default-features": true
+    },
+    {
+      "name": "boost-foreach",
+      "default-features": true
+    },
+    {
+      "name": "boost-lexical-cast",
+      "default-features": true
+    },
+    {
+      "name": "boost-property-tree",
+      "default-features": true
+    },
+    "rapidjson"
+  ],
+  "builtin-baseline": "4bb07a326d9b9bce3703272a509e5bc25dd9cfd5"
+}

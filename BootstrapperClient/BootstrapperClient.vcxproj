@@ -98,6 +98,13 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgEnabled>true</VcpkgEnabled>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CustomBuildStep>
       <Message />
@@ -165,7 +172,7 @@
       <Optimization>MinSpace</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\Bootstrapper;$(CONTRIB_PATH)\boost_1_88_0\;..\Win;..\ClientShared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Bootstrapper;..\Win;..\ClientShared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;BOOST_THREAD_BUILD_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -176,14 +183,14 @@
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(CONTRIB_PATH)\SDK\Lib\Iphlpapi.lib;$(CONTRIB_PATH)\SDK\Lib\taskschd.lib;$(CONTRIB_PATH)\SDK\Lib\mstask.lib;$(CONTRIB_PATH)\boost_1_88_0\lib32-msvc-14.3\libboost_thread-vc143-mt-s-x32-1_88.lib;$(CONTRIB_PATH)\boost_1_88_0\lib32-msvc-14.3\libboost_system-vc143-mt-s-x32-1_88.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)PekoraPlayerLauncher.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(CONTRIB_PATH)\boost_1_88_0\lib32-msvc-14.3;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command />
