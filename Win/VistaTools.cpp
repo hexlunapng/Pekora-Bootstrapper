@@ -161,6 +161,5 @@ bool IsElevated()
 
 bool IsUacEnabled()
 {
-    CRegKey k;
-	return FAILED(k.Open(HKEY_LOCAL_MACHINE, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA")));
+	return true;
 }

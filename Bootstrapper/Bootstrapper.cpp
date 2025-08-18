@@ -1000,53 +1000,54 @@ void Bootstrapper::message(const std::string& message)
 // http://blogs.msdn.com/ie/archive/2007/06/13/new-api-smoothes-extension-development-in-protected-mode.aspx
 UINT __stdcall RefreshPolicies()
 {
-    UINT hr = ERROR_SUCCESS;
-    HMODULE hDll = LoadLibrary(_T("ieframe.dll"));
-    if (NULL != hDll)
-    {
-        typedef HRESULT (*PFNIEREFRESHELEVATIONPOLICY)();
-        PFNIEREFRESHELEVATIONPOLICY pfnIERefreshElePol = (PFNIEREFRESHELEVATIONPOLICY) GetProcAddress(hDll, "IERefreshElevationPolicy");
-        if (pfnIERefreshElePol)
-        {
-            hr = pfnIERefreshElePol();
-        } else {
-             DWORD error = GetLastError(); 
-             hr = HRESULT_FROM_WIN32(error);
-         }
-        FreeLibrary(hDll);
-    } else {
-       DWORD error = GetLastError(); 
-       hr = HRESULT_FROM_WIN32(error);
-    }
-    return hr;
+    //UINT hr = ERROR_SUCCESS;
+    //HMODULE hDll = LoadLibrary(_T("ieframe.dll"));
+    //if (NULL != hDll)
+    //{
+    //    typedef HRESULT (*PFNIEREFRESHELEVATIONPOLICY)();
+    //    PFNIEREFRESHELEVATIONPOLICY pfnIERefreshElePol = (PFNIEREFRESHELEVATIONPOLICY) GetProcAddress(hDll, "IERefreshElevationPolicy");
+    //    if (pfnIERefreshElePol)
+    //    {
+    //        hr = pfnIERefreshElePol();
+    //    } else {
+    //         DWORD error = GetLastError(); 
+    //         hr = HRESULT_FROM_WIN32(error);
+    //     }
+    //    FreeLibrary(hDll);
+    //} else {
+    //   DWORD error = GetLastError(); 
+    //   hr = HRESULT_FROM_WIN32(error);
+    //}
+    //return hr;
+	return 1;
 }
 
 void Bootstrapper::RegisterElevationPolicy(const TCHAR* appName, const TCHAR* appPath)
 {
-	std::string guid;
-	{
-		GUID g;
-		::CoCreateGuid(&g);
-		OLECHAR s[256];
-		::StringFromGUID2(g, s, 256);
-		guid = convert_w2s((LPCTSTR)CString(s));
-	}
+	//std::string guid;
+	//{
+	//	GUID g;
+	//	::CoCreateGuid(&g);
+	//	OLECHAR s[256];
+	//	::StringFromGUID2(g, s, 256);
+	//	guid = convert_w2s((LPCTSTR)CString(s));
+	//}
 
-	std::wstring skey = format_string(_T("Software\\Microsoft\\Internet Explorer\\Low Rights\\ElevationPolicy\\%S"), guid.c_str());
+	//std::wstring skey = format_string(_T("Software\\Microsoft\\Internet Explorer\\Low Rights\\ElevationPolicy\\%S"), guid.c_str());
 
-	LOG_ENTRY1("RegisterElevationPolicy: %S", skey.c_str());
-	CRegKey key;
-	throwHRESULT(key.Create(perUser ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, skey.c_str()), format_string("Failed to create key for %s elevation policy", appName));
-	throwHRESULT(key.SetStringValue(_T("AppName"), appName), format_string("Failed to create AppName for %s elevation policy", appName));
-	throwHRESULT(key.SetDWORDValue(_T("Policy"), 3), format_string("Failed to create Policy for %s elevation policy", appName));
-	throwHRESULT(key.SetStringValue(_T("AppPath"), appPath), format_string("Failed to create AppPath for %s elevation policy", appName));
-	key.Close();
-	
-	HRESULT hr = RefreshPolicies();
-	if (FAILED(hr))
-	{
-		LOG_ENTRY1("WARNING: RefreshPolicies failed - HR=0x%X", hr);
-	}
+	//LOG_ENTRY1("RegisterElevationPolicy: %S", skey.c_str());
+	//CRegKey key;
+	//throwHRESULT(key.Create(perUser ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, skey.c_str()), format_string("Failed to create key for %s elevation policy", appName));
+	//throwHRESULT(key.SetStringValue(_T("AppName"), appName), format_string("Failed to create AppName for %s elevation policy", appName));
+	//throwHRESULT(key.SetDWORDValue(_T("Policy"), 3), format_string("Failed to create Policy for %s elevation policy", appName));
+	//throwHRESULT(key.SetStringValue(_T("AppPath"), appPath), format_string("Failed to create AppPath for %s elevation policy", appName));
+	//key.Close();
+	//
+	//HRESULT hr = RefreshPolicies();
+	//if (FAILED(hr))
+	//{
+	//	LOG_ENTRY1("WARNING: RefreshPolicies failed - HR=0x%X", hr);
+	//}
 }
 
 bool Bootstrapper::isInstalled(std::wstring productKey)
