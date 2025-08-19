@@ -28,14 +28,14 @@ LRESULT CALLBACK ClientButtonProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		break; 
 	case WM_MOUSEHOVER:
 		{
-			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (dialog->isSuccessPromptShown())
 				SendMessage(hWnd, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)dialog->getOkBitmap(true));
 		}
 		break;
 	case WM_MOUSELEAVE: 
 		{ 
-			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (dialog->isSuccessPromptShown())
 				SendMessage(hWnd, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)dialog->getOkBitmap(false));
 
@@ -56,7 +56,7 @@ LRESULT CALLBACK ClientButtonProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 			if (xPos < 0 || xPos > width || yPos < 0 || yPos > height)
 				break;
 
-			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			CClientProgressDialog* dialog = (CClientProgressDialog*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			dialog->CloseDialog();
 
 			SendMessage(GetParent(hWnd), WM_CLOSE, 0, 0);
@@ -127,8 +127,8 @@ void CClientProgressDialog::InitDialog()
 		width/2-bntWidth/2, height - 55, bntWidth, bntHeight, hWndDialog, (HMENU)IDB_BTN_OK, GetModuleHandle(NULL), NULL);
 	SendMessage(hWndBntOk, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)getOkBitmap(false));
 
-	ClientOldButtonProc = (WNDPROC)SetWindowLongPtr(hWndBntOk, GWL_WNDPROC, (LONG) ClientButtonProc);
-	SetWindowLongPtr(hWndBntOk, GWL_USERDATA, (LONG)this);
+	ClientOldButtonProc = (WNDPROC)SetWindowLongPtr(hWndBntOk, GWLP_WNDPROC, (LONG) ClientButtonProc);
+	SetWindowLongPtr(hWndBntOk, GWLP_USERDATA, (LONG)this);
 }
 
 void CClientProgressDialog::ShowSuccessPrompt()

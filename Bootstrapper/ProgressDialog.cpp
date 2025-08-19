@@ -58,14 +58,15 @@ LRESULT CALLBACK CancelButtonProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		break; 
 	case WM_MOUSEHOVER:
 		{
-			CProgressDialog* dialog = (CProgressDialog*)GetWindowLongPtr(hWnd, GWL_USERDATA);
-			if (!dialog->isSuccessPromptShown())
+			CProgressDialog* dialog = (CProgressDialog*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+			if (dialog && !dialog->isSuccessPromptShown())
 				SendMessage(hWnd, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)dialog->getCancelBitmap(true));
+			
 		}
 		break;
 	case WM_MOUSELEAVE: 
 		{ 
-			CProgressDialog* dialog = (CProgressDialog*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			CProgressDialog* dialog = (CProgressDialog*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (!dialog->isSuccessPromptShown())
 				SendMessage(hWnd, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)dialog->getCancelBitmap(false));
 
@@ -230,8 +231,8 @@ void CProgressDialog::InitDialog(WNDPROC wndProc)
 		(LPVOID)this
 		);
 
-	OldButtonProc = (WNDPROC)SetWindowLongPtr(hWndButton, GWL_WNDPROC, (LONG) CancelButtonProc);
-	SetWindowLongPtr(hWndButton, GWL_USERDATA, (LONG)this);
+	OldButtonProc = (WNDPROC)SetWindowLongPtr(hWndButton, GWLP_WNDPROC, (LONG) CancelButtonProc);
+	SetWindowLongPtr(hWndButton, GWLP_USERDATA, (LONG)this);
 }
 
 void CProgressDialog::OnCreate(HWND hWnd)

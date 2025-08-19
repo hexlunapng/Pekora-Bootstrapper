@@ -892,33 +892,27 @@ void Bootstrapper::Close()
 
 bool Bootstrapper::hasSse2()
 {
-    const unsigned int kCpuVendorCmd = 0;
-    const unsigned int kCpuFeatures = 1;
-    const unsigned int kSse2BitLoc = 26;
+	const int kCpuVendorCmd = 0;
+	const int kCpuFeatures = 1;
+	const int kSse2BitLoc = 26;
 
-    // Determine if the feature register is available.  I have not idea how this
-    // would fail on any computer built in the last 15 years.
-    unsigned int highestFunction = 0;
-    __asm {
-        mov	  eax, kCpuVendorCmd
-        mov   ecx, 0
-        cpuid               
-        mov   highestFunction, eax
-    }
-    if (highestFunction < kCpuFeatures)
-    {
-        return false;
-    }
+	int cpuInfo[4] = { 0 };
 
-    // Check for SSE2 Support
-    unsigned int featureBits;
-    __asm {
-        mov	  eax, kCpuFeatures
-        mov   ecx, 0
-        cpuid               
-        mov   featureBits, edx
-    }
-    return ( featureBits & (1 << kSse2BitLoc));
+	// Determine if the feature register is available. I have no idea how this
+	// would fail on any computer built in the last 15 years.
+	__cpuid(cpuInfo, kCpuVendorCmd);
+	int highestFunction = cpuInfo[0];
+
+	if (highestFunction < kCpuFeatures)
+	{
+		return false;
+	}
+
+	// Check for SSE2 Support
+	__cpuid(cpuInfo, kCpuFeatures);
+	int featureBits = cpuInfo[3];
+
+	return (featureBits & (1 << kSse2BitLoc)) != 0;
 }
 
 boost::shared_ptr<Bootstrapper> Bootstrapper::Create(HINSTANCE hInstance, Bootstrapper*(*newBootstrapper)(HINSTANCE))
