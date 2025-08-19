@@ -191,7 +191,7 @@ protected:
 	virtual bool GetLogChromeProtocolFix() { return false; }
 	virtual bool GetUseNewVersionFetch() { return false; }
 	virtual bool GetUseDataDomain() { return true; }
-	virtual bool CreateEdgeRegistry() { return true; }
+	virtual bool CreateEdgeRegistry() { return false; }
 	virtual bool DeleteEdgeRegistry() { return false; }
 
 	std::string fetchVersionGuid(std::string product);

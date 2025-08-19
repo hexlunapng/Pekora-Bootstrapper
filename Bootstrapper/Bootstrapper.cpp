@@ -1124,16 +1124,16 @@ void Bootstrapper::RegisterProtocolHandler(const std::wstring& protocolScheme, c
 	// update value in install key
 	throwHRESULT(installKey.SetStringValue(_T("protocol handler scheme"), protocolScheme.c_str()), "Failed to set protocol handler scheme key value");
 
-	// Do not warn the End User to launch with protocol for IE & Edge Browsers.
-	if (CreateEdgeRegistry())
-	{
-		auto warnKey = CreateKey(isPerUser() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, (_T("SOFTWARE\\Microsoft\\Internet Explorer\\ProtocolExecute\\") + protocolScheme).c_str());
-		throwHRESULT(warnKey->SetDWORDValue(_T("WarnOnOpen"), 0), format_string("Failed to set Protocol WarnOnOpen Key"));
-	}
-	
-	// Really is the above key causing issues, delete it
-	if (DeleteEdgeRegistry())
-		DeleteKey(logger, isPerUser() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, (_T("SOFTWARE\\Microsoft\\Internet Explorer\\ProtocolExecute\\") + protocolScheme).c_str());
+	//// Do not warn the End User to launch with protocol for IE & Edge Browsers.
+	//if (CreateEdgeRegistry())
+	//{
+	//	auto warnKey = CreateKey(isPerUser() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, (_T("SOFTWARE\\Microsoft\\Internet Explorer\\ProtocolExecute\\") + protocolScheme).c_str());
+	//	throwHRESULT(warnKey->SetDWORDValue(_T("WarnOnOpen"), 0), format_string("Failed to set Protocol WarnOnOpen Key"));
+	//}
+	//
+	//// Really is the above key causing issues, delete it
+	//if (DeleteEdgeRegistry())
+	//	DeleteKey(logger, isPerUser() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE, (_T("SOFTWARE\\Microsoft\\Internet Explorer\\ProtocolExecute\\") + protocolScheme).c_str());
 }
 
 void Bootstrapper::UnregisterProtocolHandler(const std::wstring& protocolScheme)
