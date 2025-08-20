@@ -113,7 +113,7 @@ void BootstrapperQTStudio::LoadSettings()
 		SettingsLoader loader(BaseHost());
 		settings.ReadFromStream(loader.GetSettingsString("WindowsStudioBootstrapperSettings").c_str());
 
-		HttpTools::httpBoostPostTimeout = settings.GetValueHttpBoostPostTimeout();
+		HttpTools::httpCprPostTimeout = settings.GetValuehttpCprPostTimeout();
 	}
 	catch (std::exception e)
 	{

@@ -6,7 +6,7 @@
 
 namespace HttpTools
 {
-	static int httpBoostPostTimeout = 0;
+	static int httpCprPostTimeout = 0;
 
 	std::string httpGetString(const std::string& url);
 
