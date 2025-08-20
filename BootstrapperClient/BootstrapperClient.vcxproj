@@ -75,10 +75,11 @@
     <_ProjectFileVersion>17.0.34031.279</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>bin\$(Configuration)\</OutDir>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <OutDir>bin\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>obj\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <TargetName>PekoraPlayerLauncher</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
@@ -116,17 +117,18 @@
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Bootstrapper;$(CONTRIB_PATH)\boost_1_84_0\;..\Win;..\ClientShared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Bootstrapper;..\Win;..\ClientShared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;BOOST_THREAD_BUILD_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(CONTRIB_PATH)\SDK\Lib\Iphlpapi.lib;$(CONTRIB_PATH)\SDK\Lib\taskschd.lib;$(CONTRIB_PATH)\SDK\Lib\mstask.lib;$(CONTRIB_PATH)\boost_1_88_0\lib32-msvc-14.3\libboost_thread-vc143-mt-sgd-x32-1_88.lib;$(CONTRIB_PATH)\boost_1_88_0\lib32-msvc-14.3\libboost_system-vc143-mt-sgd-x32-1_88.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)PekoraPlayerLauncher.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -185,9 +187,10 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard_C>Default</LanguageStandard_C>
       <LanguageStandard>stdcpp23</LanguageStandard>
+      <SupportJustMyCode>true</SupportJustMyCode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;crypt32.lib;secur32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)PekoraPlayerLauncher.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -222,7 +225,7 @@
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Iphlpapi.lib;taskschd.lib;mstask.lib;crypt32.lib;secur32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)PekoraPlayerLauncher.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
