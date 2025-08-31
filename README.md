@@ -1,6 +1,8 @@
 # General Information
 This is the source code for https://pekora.zip revival multi-client bootstrapper.
 
+# i modded pekora's bootstrapper!
+
 # How to build
 
 ### Requirements:
